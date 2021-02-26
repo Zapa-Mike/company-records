@@ -2,9 +2,15 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
   </div>
-    <p v-for="(company, index) in companies" :key="index">
-      {{ company.name }}
-    </p>
+  <p v-for="(company, index) in companies" :key="index">
+    <router-link
+      :to="{
+        name: 'EmployeeRecord',
+        params: { companyId: company.id, companyName: company.name },
+      }"
+      >{{ company.name }}</router-link
+    >
+  </p>
 </template>
 
 <script>

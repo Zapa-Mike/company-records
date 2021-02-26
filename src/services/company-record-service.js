@@ -5,6 +5,9 @@ export default class CompanyRecordService {
   getEmployeesByCompanyId(companyId) {
     return new MockService().getEmployeesByCompanyId(companyId);
   }
+  addEmployee(employee) {
+    console.log(employee);
+  }
 }
 class MockService {
   getCompanies() {

@@ -1,44 +1,52 @@
 <template>
   <div>
     <form @submit="addEmployee">
-      <input type="text" placeholder="Vorname" />
-      <input type="text" v-model="surname" placeholder="Nachname" />
-      <input type="text" placeholder="Email" />
+      <input type="text" name="forename" placeholder="Vorname" />
+      <input type="text" name="surname" placeholder="Nachname" />
+      <input type="email" name="email" placeholder="E-Mail" />
       <input type="submit" value="Submit" class="btn" />
     </form>
   </div>
 </template>
 
 <script>
-import uuid from "uuid";
+import CompanyRecordService from "../services/company-record-service";
 
 export default {
   name: "AddEmployee",
-  data() {
-    ""
+  props: {
+    companyId: String,
+    companyName: String,
   },
   methods: {
-    addEmployee(e) {
-        e.preventDefault();
+    addEmployee(elements) {
+      elements.preventDefault();
       const newEmployee = {
-        id: uuid.v4(),
-        surname: this.surname,
+        forename: elements.target.elements.forename.value,
+        surname: elements.target.elements.surname.value,
+        email: elements.target.elements.email.value,
       };
+      var service = new CompanyRecordService();
+      service.addEmployee(newEmployee);
+      this.$router.push({
+        name: "EmployeeRecord",
+        params: {
+          companyId: this.$route.params.companyId,
+          companyName: this.$route.params.companyName,
+        },
+      });
     },
   },
 };
-    this.$emit('add-employee', newEmployee);
-    this.surname = '';
 </script>
 
 <style scoped>
 form {
-  display: flex;
+  display: inline-grid;
+  margin: 0 auto;
 }
 input[type="text"] {
   flex: 10;
   padding: auto;
 }
 </style>>
-
-</style>

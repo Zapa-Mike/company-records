@@ -2,12 +2,16 @@
   <div class="hello">
     <h1>Mitarbeiter von {{ companyName }}</h1>
   </div>
-  <ul>
-    <li v-for="(employee, index) in employees" :key="index">
-      {{ employee.name }}
-    </li>
-  </ul>
-  <button>Mitarbeiter hinzufügen</button>
+  <p v-for="(employee, index) in employees" :key="index">
+    {{ employee.surname + " " + employee.forename }} {{ employee.email }}
+  </p>
+  <router-link
+    :to="{
+      name: 'AddEmployee',
+      params: { companyId: companyId, companyName: companyName },
+    }"
+    >Mitarbeiter hinzufügen</router-link
+  >
 </template>
 
 <script>
@@ -20,7 +24,9 @@ export default {
   },
   data() {
     return {
-      employees: new CompanyRecordService().getEmployeesByCompanyId(companyId),
+      employees: new CompanyRecordService().getEmployeesByCompanyId(
+        this.companyId
+      ),
     };
   },
 };
