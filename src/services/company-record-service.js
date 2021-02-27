@@ -36,6 +36,10 @@ class MockService {
         id: "5",
         name: "Company 5",
       },
+      {
+        id: "6",
+        name: "Company 6",
+      },
     ];
   }
 
