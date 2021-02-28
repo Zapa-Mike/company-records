@@ -11,13 +11,13 @@ const routes = [
   },
   { path: "/", component: Home },
   {
-    path: "/Companies/:companyId/EmployeeRecord",
+    path: "/Companies/:companyId/:companyName/EmployeeRecord",
     component: EmployeeRecord,
     name: "EmployeeRecord",
     props: true,
   },
   {
-    path: "/Companies/:companyId/AddEmployee",
+    path: "/Companies/:companyId/:companyName/AddEmployee",
     component: AddEmployee,
     name: "AddEmployee",
   },

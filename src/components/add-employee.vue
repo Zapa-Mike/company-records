@@ -1,8 +1,8 @@
 <template>
   <div>
     <form @submit="addEmployee">
-      <input type="text" name="forename" placeholder="Vorname" />
-      <input type="text" name="surname" placeholder="Nachname" />
+      <input required type="text" name="forename" placeholder="Vorname" />
+      <input required type="text" name="surname" placeholder="Nachname" />
       <input type="email" name="email" placeholder="E-Mail" />
       <input type="submit" value="Submit" class="btn" />
     </form>
@@ -19,7 +19,7 @@ export default {
     companyName: String,
   },
   methods: {
-    addEmployee(elements) {
+    async addEmployee(elements) {
       elements.preventDefault();
       const newEmployee = {
         forename: elements.target.elements.forename.value,
@@ -27,14 +27,17 @@ export default {
         email: elements.target.elements.email.value,
       };
       var service = new CompanyRecordService();
-      service.addEmployee(newEmployee);
-      this.$router.push({
-        name: "EmployeeRecord",
-        params: {
-          companyId: this.$route.params.companyId,
-          companyName: this.$route.params.companyName,
-        },
-      });
+      service
+        .addEmployee(this.$route.params.companyId, newEmployee)
+        .then(() => {
+          this.$router.push({
+            name: "EmployeeRecord",
+            params: {
+              companyId: this.$route.params.companyId,
+              companyName: this.$route.params.companyName,
+            },
+          });
+        });
     },
   },
 };

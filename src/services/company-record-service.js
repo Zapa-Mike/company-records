@@ -1,76 +1,27 @@
 export default class CompanyRecordService {
-  getCompanies() {
-    return new MockService().getCompanies();
+  constructor() {
+    this.companies = [];
+    this.employees = [];
+  }
+  loadCompanies() {
+    fetch("http://laravel.development/companies/all")
+      .then((res) => res.json())
+      .then((data) => (this.companies = data));
   }
   getEmployeesByCompanyId(companyId) {
-    return new MockService().getEmployeesByCompanyId(companyId);
+    fetch("http://laravel.development/companies/" + companyId + "/employees")
+      .then((res) => res.json())
+      .then((data) => (this.employees = data));
   }
-  addEmployee(employee) {
-    console.log(employee);
-  }
-}
-class MockService {
-  getCompanies() {
-    return [
-      {
-        id: "0",
-        name: "Company 0",
-      },
-      {
-        id: "1",
-        name: "Company 1",
-      },
-      {
-        id: "2",
-        name: "Company 2",
-      },
-      {
-        id: "3",
-        name: "Company 3",
-      },
-      {
-        id: "4",
-        name: "Company 4",
-      },
-      {
-        id: "5",
-        name: "Company 5",
-      },
-      {
-        id: "6",
-        name: "Company 6",
-      },
-    ];
-  }
-
-  getEmployeesByCompanyId(companyId) {
-    return [
-      {
-        id: "0",
-        companyId: companyId,
-        surname: "Employee 0",
-        forename: "Mike",
-        email: "email@example.org",
-      },
-      {
-        id: "1",
-        companyId: companyId,
-        surname: "Employee 1",
-        forename: "Martin",
-        email: "email@example.org",
-      },
-    ];
+  async addEmployee(companyId, employee) {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(employee),
+    };
+    return fetch(
+      "http://laravel.development/companies/" + companyId + "/addEmployee",
+      requestOptions
+    );
   }
 }
-
-// class Company {
-//   id;
-//   name;
-// }
-// class Employee {
-//   id;
-//   companyId;
-//   surname;
-//   forename;
-//   email;
-// }

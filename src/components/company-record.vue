@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
   </div>
-  <p v-for="(company, index) in companies" :key="index">
+  <p v-for="(company, index) in dataService.companies" :key="index">
     <router-link
       :to="{
         name: 'EmployeeRecord',
@@ -22,8 +22,11 @@ export default {
   },
   data() {
     return {
-      companies: new CompanyRecordService().getCompanies(),
+      dataService: new CompanyRecordService(),
     };
+  },
+  created() {
+    this.dataService.loadCompanies();
   },
 };
 </script>

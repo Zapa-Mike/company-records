@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>Mitarbeiter von {{ companyName }}</h1>
   </div>
-  <p v-for="(employee, index) in employees" :key="index">
+  <p v-for="(employee, index) in dataService.employees" :key="index">
     {{ employee.surname + " " + employee.forename }} {{ employee.email }}
   </p>
   <router-link
@@ -24,10 +24,11 @@ export default {
   },
   data() {
     return {
-      employees: new CompanyRecordService().getEmployeesByCompanyId(
-        this.companyId
-      ),
+      dataService: new CompanyRecordService(),
     };
+  },
+  created() {
+    this.dataService.getEmployeesByCompanyId(this.$route.params.companyId);
   },
 };
 </script>
