@@ -3,7 +3,7 @@
     <h1>Mitarbeiter von {{ companyName }}</h1>
   </div>
   <p v-for="(employee, index) in dataService.employees" :key="index">
-    {{ employee.surname + " " + employee.forename }} {{ employee.email }}
+    {{ employee.surname + " " + employee.forename }} | {{ employee.email }}
   </p>
   <router-link
     :to="{
